@@ -1,67 +1,113 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Struk Pembelian</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Roboto Mono', monospace, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            background: #f8f9fa;
+            background: #f2f4f7;
+            color: #333;
+            -webkit-print-color-adjust: exact;
         }
         .receipt-container {
-            max-width: 360px;
-            background: white;
+            max-width: 380px;
+            background: #fff;
             margin: 30px auto;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+            border: 1px solid #ddd;
         }
         .header {
             text-align: center;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+            border-bottom: 2px dashed #bbb;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
         .header h2 {
             margin: 0;
-            font-size: 22px;
+            font-size: 26px;
+            color: #2c3e50;
+            letter-spacing: 2px;
         }
         .header small {
-            color: #555;
+            display: block;
+            margin-top: 5px;
+            color: #7f8c8d;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 1px;
         }
         .info {
             font-size: 14px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: #4a4a4a;
         }
         .info b {
             display: inline-block;
-            width: 80px;
+            width: 90px;
+            font-weight: 600;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
-        th, td {
-            padding: 6px;
+        thead th {
+            border-bottom: 2px solid #bbb;
+            padding-bottom: 8px;
+            color: #34495e;
+            font-weight: 700;
+        }
+        tbody td {
+            padding: 8px 4px;
+            border-bottom: 1px solid #eee;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        td.qty, td.price, td.subtotal {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+        tfoot td {
+            padding-top: 12px;
+            font-weight: 700;
+            border-top: 2px dashed #999;
+            font-size: 16px;
+            color: #2c3e50;
+            text-align: right;
+        }
+        tfoot td:first-child {
             text-align: left;
-        }
-        thead {
-            border-bottom: 1px solid #ccc;
-        }
-        tfoot {
-            border-top: 1px dashed #999;
-            font-weight: bold;
         }
         .footer {
             text-align: center;
-            font-size: 12px;
-            color: #666;
-            border-top: 1px dashed #ccc;
-            padding-top: 10px;
+            font-size: 13px;
+            color: #7f8c8d;
+            border-top: 2px dashed #bbb;
+            padding-top: 15px;
+            font-style: italic;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .receipt-container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                max-width: 100%;
+                border-radius: 0;
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -82,25 +128,25 @@
         <thead>
             <tr>
                 <th>Produk</th>
-                <th>Harga</th>
-                <th>Qty</th>
-                <th style="text-align: right;">Subtotal</th>
+                <th class="price">Harga</th>
+                <th class="qty">Qty</th>
+                <th class="subtotal">Subtotal</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($transaksi->transaksiDetail as $detail)
             <tr>
                 <td>{{ $detail->produk->name }}</td>
-                <td>{{ 'Rp ' . number_format($detail->produk->harga, 0, ',', '.') }}</td>
-                <td>{{ $detail->qty }}</td>
-                <td style="text-align: right;">{{ 'Rp ' . number_format($detail->subtotal, 0, ',', '.') }}</td>
+                <td class="price">{{ 'Rp ' . number_format($detail->produk->harga, 0, ',', '.') }}</td>
+                <td class="qty">{{ $detail->qty }}</td>
+                <td class="subtotal">{{ 'Rp ' . number_format($detail->subtotal, 0, ',', '.') }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
                 <td colspan="3">Total</td>
-                <td style="text-align: right;">Rp {{ number_format($transaksi->total, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($transaksi->total, 0, ',', '.') }}</td>
             </tr>
         </tfoot>
     </table>
