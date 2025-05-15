@@ -16,6 +16,8 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Gambar</th>
                                 <th scope="col">Nama Produk</th>
+                                <th scope="col">Stok</th> {{-- kolom stok --}}
+                                <th scope="col" class="text-end">Harga</th> {{-- kolom harga --}}
                                 <th scope="col" class="text-end">Aksi</th>
                             </tr>
                         </thead>
@@ -34,6 +36,13 @@
                                 </td>
 
                                 <td>{{ $item->name }}</td>
+
+                                {{-- Kolom Stok --}}
+                                <td>{{ $item->stok ?? 0 }}</td>
+
+                                {{-- Kolom Harga --}}
+                                <td class="text-end">Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
+
                                 <td class="text-end">
                                     <a href="/admin/produk/{{ $item->id }}/edit" class="btn btn-sm btn-outline-info me-1">
                                         <i class="fas fa-edit"></i>
