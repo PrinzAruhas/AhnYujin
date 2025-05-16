@@ -54,10 +54,6 @@
     <!-- Welcome Card -->
     <div class="welcome-card p-4 d-flex align-items-center">
         <div class="me-4">
-            <!-- Ganti src avatar sesuai kebutuhan -->
-            <img src="{{ asset('storage/Anyujin.jpeg') }}" alt="User Profile"
-    class="rounded-full object-cover border border-blue-500 shadow"
-    style="width: 50px; height: 50px;" />
 
         </div>
         <div>
