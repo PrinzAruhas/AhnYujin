@@ -1,21 +1,21 @@
 <div class="row p-3">
     <div class="col-lg-8 mx-auto">
-        <div class="card shadow rounded-4">
+        <div class="card shadow rounded-4" style="background: linear-gradient(145deg, #0f0f1a, #1a1a2e); color: #e0e0e0; border: 1px solid #00ffff;">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="fw-bold mb-0">{{ $title }}</h4>
-                    <a href="/admin/transaksi/create" class="btn btn-primary">
+                    <h4 class="fw-bold mb-0" style="color: #00ffff; text-shadow: 0 0 4px #00ffff;">{{ $title }}</h4>
+                    <a href="/admin/transaksi/create" class="btn" style="background-color: #ff00ff; color: #fff; box-shadow: 0 0 10px #ff00ff;">
                         <i class="fas fa-plus me-1"></i> Tambah Transaksi
                     </a>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-light">
+                    <table class="table table-hover align-middle" style="background-color: #0f0f1a; color: #ffffff; border-color: #00ffff;">
+                        <thead style="background-color: #1f1f3a; color: #00ffff;">
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Tanggal</th>
-                                <th scope="col" class="text-end">Total Harga</th> {{-- kolom harga --}}
+                                <th scope="col" class="text-end">Total Harga</th>
                                 <th scope="col" class="text-end">Aksi</th>
                             </tr>
                         </thead>
@@ -23,21 +23,16 @@
                             @foreach($transaksi as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                
-                                {{-- Kolom Tanggal --}}
                                 <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
-                                
-                                {{-- Kolom Total Harga --}}
                                 <td class="text-end">Rp {{ number_format($item->total, 0, ',', '.') }}</td>
-
                                 <td class="text-end">
-                                    <a href="/admin/transaksi/{{ $item->id }}/edit" class="btn btn-sm btn-outline-info me-1">
+                                    <a href="/admin/transaksi/{{ $item->id }}/edit" class="btn btn-sm" style="border: 1px solid #00d1ff; color: #00d1ff; box-shadow: 0 0 6px #00d1ff;">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="/admin/transaksi/{{ $item->id }}" method="POST" class="d-inline">
                                         @method('delete')
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
+                                        <button type="submit" class="btn btn-sm" style="border: 1px solid #ff3860; color: #ff3860; box-shadow: 0 0 6px #ff3860;" onclick="return confirm('Yakin ingin menghapus transaksi ini?')">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>
@@ -48,7 +43,7 @@
                     </table>
                 </div>
 
-                <div class="mt-3">
+                <div class="mt-3 d-flex justify-content-center">
                     {{ $transaksi->links() }}
                 </div>
             </div>
