@@ -11,20 +11,26 @@
   <div class="sidebar pt-4">
 
     <!-- User Panel -->
-    <div class="d-flex flex-column align-items-center mb-4 text-white">
-      <img src="{{ Auth::user()->foto 
-          ? asset('storage/user/' . Auth::user()->foto) 
-          : asset('storage/97c98394-9543-440a-af08-80cd84c2a4c6.jpeg') }}"
-          alt="User Profile" 
-          class="rounded-circle shadow-sm mb-2" 
-          style="width: 70px; height: 70px; object-fit: cover; border: 3px solid #ff6f61;">
-      <strong style="font-size: 16px;">{{ Auth::user()->name ?? 'Admin' }}</strong>
+    <div class="d-flex flex-column align-items-center text-center mb-4">
+      <div style="
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 4px solid #ff6f61;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      ">
+        <img src="{{ asset('storage/e2614b1f-b454-42a5-98cc-8d5824695930.jpeg') }}" alt="User Profile" style="width: 130px; height: 130px; object-fit: cover;">
+      </div>
+      <strong style="color: white; font-size: 16px; margin-top: 10px;">
+        {{ Auth::user()->name ?? 'Admin' }}
+      </strong>
     </div>
 
     <!-- Sidebar Menu -->
     <nav class="mt-3">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        
+
         <li class="nav-item mb-1">
           <a href="/" class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="color: #f0f0f0;">
             <i class="nav-icon fas fa-tachometer-alt" style="color: #00d1b2;"></i>
