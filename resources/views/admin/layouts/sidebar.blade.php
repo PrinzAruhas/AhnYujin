@@ -1,76 +1,130 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background: linear-gradient(135deg, #1e3c72, #2a5298);">
+<aside class="main-sidebar elevation-4" style="
+  background: linear-gradient(180deg, #181824 0%, #252a42 100%);
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.7);
+  border-right: 1px solid #3c3c50;
+  min-height: 100vh;
+  width: 260px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1050;
+  font-family: 'Poppins', sans-serif;
+">
+
   <!-- Brand Logo -->
-  <a href="/" class="brand-link d-flex align-items-center justify-content-center py-3" style="background-color: #ff6f61;">
-    <span class="brand-text font-weight-bold text-white" style="font-size: 20px;">
-      <i class="fas fa-store me-2"></i> Distro Anyujin
-    </span>
+  <a href="/" class="brand-link d-flex align-items-center justify-content-center py-4" style="
+    background-color: #20243a;
+    box-shadow: 0 3px 15px rgba(106, 179, 248, 0.5);
+    font-weight: 700;
+    font-size: 22px;
+    color: #6ab3f8;
+    letter-spacing: 1.1px;
+    text-shadow: 0 0 8px #6ab3f8aa;
+    user-select: none;
+    transition: background-color 0.3s ease;
+  " onmouseenter="this.style.backgroundColor='#2e3560'" onmouseleave="this.style.backgroundColor='#20243a'">
+    <i class="fas fa-store me-2" style="color: #7ec6ff; font-size: 1.5rem;"></i> Distro Anyujin
   </a>
 
-  <!-- Sidebar -->
-  <div class="sidebar pt-4">
+  <!-- Sidebar Content -->
+  <div class="sidebar pt-5 text-center flex-grow-1 d-flex flex-column justify-content-between">
 
     <!-- User Panel -->
-    <div class="d-flex flex-column align-items-center text-center mb-4">
+    <div class="d-flex flex-column align-items-center px-4 mb-5">
       <div style="
-        width: 130px;
-        height: 130px;
+        width: 110px;
+        height: 110px;
         border-radius: 50%;
         overflow: hidden;
-        border: 4px solid #ff6f61;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      ">
-        <img src="{{ asset('storage/e2614b1f-b454-42a5-98cc-8d5824695930.jpeg') }}" alt="User Profile" style="width: 130px; height: 130px; object-fit: cover;">
+        border: 3px solid #6ab3f8;
+        box-shadow: 0 0 15px rgba(106, 179, 248, 0.6);
+        transition: box-shadow 0.3s ease;
+      " onmouseenter="this.style.boxShadow='0 0 25px #6ab3f8'" onmouseleave="this.style.boxShadow='0 0 15px rgba(106, 179, 248, 0.6)'">
+        <img src="{{ Auth::user() && Auth::user()->foto ? asset('storage/' . Auth::user()->foto) : asset('default-profile.png') }}"
+          alt="User Profile"
+          style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.95);">
       </div>
-      <strong style="color: white; font-size: 16px; margin-top: 10px;">
+      <strong style="
+        color: #d6d9ff;
+        font-size: 16px;
+        margin-top: 12px;
+        text-shadow: 0 0 6px #6ab3f8cc;
+        user-select: none;
+      ">
         {{ Auth::user()->name ?? 'Admin' }}
       </strong>
     </div>
 
     <!-- Sidebar Menu -->
-    <nav class="mt-3">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <nav class="mt-2 px-3">
+      <ul class="nav nav-pills nav-sidebar flex-column" style="gap: 14px; padding: 0;">
+        @php
+          $menu = [
+            ['url' => '/', 'icon' => 'tachometer-alt', 'label' => 'Dashboard'],
+            ['url' => '/admin/kategori', 'icon' => 'list-alt', 'label' => 'Kategori'],
+            ['url' => '/admin/produk', 'icon' => 'box-open', 'label' => 'Produk'],
+            ['url' => '/admin/transaksi', 'icon' => 'money-check-alt', 'label' => 'Transaksi'],
+            ['url' => '/admin/user', 'icon' => 'user-friends', 'label' => 'User'],
+          ];
+        @endphp
 
-        <li class="nav-item mb-1">
-          <a href="/" class="nav-link {{ Request::is('/') ? 'active' : '' }}" style="color: #f0f0f0;">
-            <i class="nav-icon fas fa-tachometer-alt" style="color: #00d1b2;"></i>
-            <p>Dashboard</p>
-          </a>
-        </li>
-
-        <li class="nav-item mb-1">
-          <a href="/admin/kategori" class="nav-link {{ Request::is('admin/kategori*') ? 'active' : '' }}" style="color: #f0f0f0;">
-            <i class="nav-icon fas fa-list-alt" style="color: #ffdd57;"></i>
-            <p>Kategori</p>
-          </a>
-        </li>
-
-        <li class="nav-item mb-1">
-          <a href="/admin/produk" class="nav-link {{ Request::is('admin/produk*') ? 'active' : '' }}" style="color: #f0f0f0;">
-            <i class="nav-icon fas fa-box-open" style="color: #48c774;"></i>
-            <p>Produk</p>
-          </a>
-        </li>
-
-        <li class="nav-item mb-1">
-          <a href="/admin/transaksi" class="nav-link {{ Request::is('admin/transaksi') ? 'active' : '' }}" style="color: #f0f0f0;">
-            <i class="nav-icon fas fa-money-check-alt" style="color: #ff3860;"></i>
-            <p>Transaksi</p>
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a href="/admin/user" class="nav-link {{ Request::is('admin/user*') ? 'active' : '' }}" style="color: #f0f0f0;">
-            <i class="nav-icon fas fa-user-friends" style="color: #3273dc;"></i>
-            <p>User</p>
-          </a>
-        </li>
-
+        @foreach ($menu as $item)
+          @php
+            $path = ltrim($item['url'], '/');
+            $isActive = Request::is($path) || Request::is($path . '/*');
+          @endphp
+          <li class="nav-item">
+            <a href="{{ $item['url'] }}" class="nav-link {{ $isActive ? 'active' : '' }}" style="
+              display: flex;
+              align-items: center;
+              gap: 12px;
+              color: {{ $isActive ? '#a3bffa' : '#c4c9e8cc' }};
+              background-color: {{ $isActive ? 'rgba(106, 179, 248, 0.25)' : 'transparent' }};
+              border-radius: 12px;
+              padding: 12px 18px;
+              font-size: 15px;
+              font-weight: 600;
+              transition: background-color 0.3s ease, color 0.3s ease;
+              user-select: none;
+            " onmouseenter="this.style.backgroundColor='rgba(106, 179, 248, 0.15)'; this.style.color='#8bb7ff';"
+              onmouseleave="this.style.backgroundColor='{{ $isActive ? 'rgba(106, 179, 248, 0.25)' : 'transparent' }}'; this.style.color='{{ $isActive ? '#a3bffa' : '#c4c9e8cc' }}';">
+              <i class="fas fa-{{ $item['icon'] }}" style="min-width: 24px; text-align: center; color: #6ab3f8; font-size: 18px;"></i>
+              <span>{{ $item['label'] }}</span>
+            </a>
+          </li>
+        @endforeach
       </ul>
     </nav>
-    <!-- /.sidebar-menu -->
+
+    <!-- Footer / Logout -->
+    <div class="mb-4 px-3 text-center">
+      <a href="/logout" class="btn btn-outline-light w-100" style="
+        border-radius: 14px;
+        font-weight: 600;
+        padding: 10px 0;
+        color: #6ab3f8;
+        border-color: #6ab3f8;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      " onmouseenter="this.style.backgroundColor='#6ab3f8'; this.style.color='#1a1a2e';"
+        onmouseleave="this.style.backgroundColor='transparent'; this.style.color='#6ab3f8';">
+        <i class="fas fa-sign-out-alt me-2"></i> Logout
+      </a>
+    </div>
+
   </div>
-  <!-- /.sidebar -->
 </aside>
 
-<div class="content-wrapper">
+<!-- Content Wrapper -->
+<div class="content-wrapper" style="
+  margin-left: 260px;
+  background: linear-gradient(90deg, #1e2037, #141528);
+  color: #e1e4ff;
+  padding: 2rem 2.5rem;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+  user-select: none;
+">
